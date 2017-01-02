@@ -89,6 +89,7 @@ class Main
         	}
         	
         	if(command[0].equals("move") && command[2].equals("over")){
+        		int block_2_state = matrix[Integer.parseInt(command[3])][0];
         		int block_1 = Integer.parseInt(command[1]);
 	    		boolean tope = false;
 				while (!tope){
@@ -104,6 +105,51 @@ class Main
 				
         		block_1 = Integer.parseInt(command[3]);
 	    		tope = false;
+				while (!tope){
+					int upper_block = matrix[block_1][1];
+	    			if(upper_block == -1){tope = true;matrix[block_1][1]=Integer.parseInt(command[1]);}
+	    			else{
+	    				block_1 = upper_block;
+	    			}
+	    			
+	    		}
+        		
+        		matrix[Integer.parseInt(command[1])][0] = 0;
+        		matrix[Integer.parseInt(command[3])][0] = block_2_state;
+        	}
+        	
+        	if(command[0].equals("pile") && command[2].equals("onto")){
+        		int block_2_state = matrix[Integer.parseInt(command[3])][0];
+        		int block_1 = Integer.parseInt(command[3]);
+	    		boolean tope = false;
+				while (!tope){
+					int upper_block = matrix[block_1][1];
+	    			if(upper_block == -1){tope = true;matrix[block_1][0]=1;}
+	    			else{
+	    				matrix[block_1][0] = 1;
+	    				matrix[block_1][1] = -1;
+	    				block_1 = upper_block;
+	    			}
+	    			
+	    		}
+						
+        		matrix[Integer.parseInt(command[1])][0] = 0;
+        		matrix[Integer.parseInt(command[3])][0] = block_2_state;
+        		
+        		for(int i=0;i<n_tam;i++){
+        			if(matrix[i][1]==Integer.parseInt(command[1])){matrix[i][1]=-1;}
+        		}
+        		
+        		matrix[Integer.parseInt(command[3])][1] = Integer.parseInt(command[1]);
+        	}
+        	
+        	if(command[0].equals("pile") && command[2].equals("over")){
+        		for(int i=0;i<n_tam;i++){
+        			if(matrix[i][1]==Integer.parseInt(command[1])){matrix[i][1]=-1;}
+        		}        		
+        		int block_1 = Integer.parseInt(command[1]);
+        		block_1 = Integer.parseInt(command[3]);
+	    		boolean tope = false;
 				while (!tope){
 					int upper_block = matrix[block_1][1];
 	    			if(upper_block == -1){tope = true;matrix[block_1][1]=Integer.parseInt(command[1]);}
