@@ -163,7 +163,23 @@ class Main
         	}
         }
         for(int i=0;i<n_tam;i++){
-        	System.out.println(i + "->" + matrix[i][0] + " " + matrix[i][1]);
+        	//System.out.println(i + "->" + matrix[i][0] + " " + matrix[i][1]);
+        	String str = "";
+        	if(matrix[i][0]==1){
+        		
+        		int block_1 = i;
+	    		boolean tope = false;	    		
+				while (!tope){
+					int upper_block = matrix[block_1][1];
+	    			if(upper_block == -1){tope = true;str = str + " "+block_1;}
+	    			else{
+	    				str = str + " "+block_1;
+	    				block_1 = upper_block;
+	    			}
+	    			
+	    		}
+        	}
+        	System.out.println(i+":"+str);
         }
     }
 }
