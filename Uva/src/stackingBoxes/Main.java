@@ -61,13 +61,44 @@ class Main
         	  boxes_order.add(cu_box);
           }
           Collections.sort(boxes_order, new BoxComparator());
+          /*
           for(int k=0;k<boxes_order.size();k++){
         	  System.out.print(boxes_order.get(k).getId()+" - ");
               for(int l=0;l<boxes_order.get(k).getDim().length;l++){
             	  System.out.print(boxes_order.get(k).getDim()[l]+" ");
               }
         	  System.out.println("");
+          }*/
+          String answer = boxes_order.get(0).getId()+"";
+          int answer_size = 1;
+          int index_1 = 0;
+          int index_2 = 1;
+          while(index_2 != boxes_order.size()){
+        	  Box b_1 = boxes_order.get(index_1);
+        	  Box b_2 = boxes_order.get(index_2);
+        	  if(b_1.getSum() == b_2.getSum()){
+        		  index_2++;
+        	  }
+        	  else{
+        		  boolean fits = true;
+        		  for(int k = 0;k<num_dimentions && fits;k++){
+        			  int dim_1 = b_1.getDim()[k];
+        			  int dim_2 = b_2.getDim()[k];
+        			  if(dim_2<=dim_1){
+        				  fits = false;
+                		  index_2++;
+        			  }
+        		  }
+        		  if(fits){
+        			  answer = answer + " " + b_2.getId();
+        			  index_1 = index_2;
+        			  index_2++;
+        			  answer_size++;
+        		  }
+        	  }
           }
+          System.out.println(answer_size);
+    	  System.out.println(answer);
         }
     }
     
